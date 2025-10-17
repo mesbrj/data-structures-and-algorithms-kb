@@ -119,10 +119,12 @@ def bst_from_list() -> BinarySearchTree:
 
 def test_add_node(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
 
+    assert BinarySearchTree().add_node(150) == True
     assert sample_bst.add_node(6) == True
     assert sample_bst.add_node(15) == False
     assert bst_from_list.add_node(9) == True
     assert bst_from_list.add_node(4) == False
+
 
 def test_serch_node(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
 
