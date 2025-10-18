@@ -1,5 +1,5 @@
 from typing import List, Dict, Union
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pytest import fixture
 
 
@@ -18,8 +18,8 @@ class Graph:
     def add_vertex(self, vertex: Vertex) -> None:
         if vertex.id not in self.vertices.keys():
             self.vertices[vertex.id] = len(self.adjacency_list)
-            self.coordinates[vertex.id] = vertex.coordinate
             self.adjacency_list.append(vertex.edges)
+            self.coordinates[vertex.id] = vertex.coordinate
 
     def adjacent_vertices(self, vertex: Union[str, int]) -> List[tuple[Union[str, int], float]]:
         if vertex in self.vertices.keys():
@@ -38,11 +38,13 @@ def sample_weighted_dag() -> Graph:
     return graph
 
 def test_coordinates(sample_weighted_dag: Graph) -> None:
+    sample_weighted_dag.add_vertex(Vertex('Z', []))
     assert sample_weighted_dag.coordinates == {
         'A': (1, 3),
         'B': (12, 17),
         'C': (35, 25),
-        'D': (49, 36)
+        'D': (49, 36),
+        'Z': (0.0, 0.0)
     }
 
 def test_add_vertex() -> None:
