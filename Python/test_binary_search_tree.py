@@ -209,29 +209,42 @@ def test_bf_level_order(sample_bst: BinarySearchTree, bst_from_list: BinarySearc
     assert sample_bst.bf_level_order() == [[10], [5, 15], [3, 7, 18]]
     assert bst_from_list.bf_level_order() == [[7], [4, 13], [3, 6, 10, 14], [1, 8]]
 
-    sample_bst.add_node(-2)
-    sample_bst.add_node(1)
-    sample_bst.add_node(-8)
-    sample_bst.add_node(-16)
-    bst_from_list.add_node(200)
-    bst_from_list.add_node(300)
-    bst_from_list.add_node(250)
+    bst_from_list.add_node(-2)
+    bst_from_list.add_node(1)
+    bst_from_list.add_node(-8)
+    bst_from_list.add_node(-16)
+    bst_from_list.add_node(-3)
+    bst_from_list.add_node(2)
+    bst_from_list.add_node(8)
+    bst_from_list.add_node(12)
+    sample_bst.add_node(200)
+    sample_bst.add_node(300)
+    sample_bst.add_node(250)
+    sample_bst.add_node(85)
+    sample_bst.add_node(150)
 
-    assert sample_bst.bf_level_order() == [[10], [5, 15], [3, 7, 18], [-2], [-8, 1], [-16]]
-    assert bst_from_list.bf_level_order() == [[7], [4, 13], [3, 6, 10, 14], [1, 8, 200], [300], [250]]
+    assert bst_from_list.bf_level_order() == [[7], [4, 13], [3, 6, 10, 14], [1, 8, 12], [-2, 2], [-8], [-16, -3]]
+    assert sample_bst.bf_level_order() == [[10], [5, 15], [3, 7, 18], [200], [85, 300], [150, 250]]
+
 
 def test_bst_height(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
 
     assert sample_bst.bst_height() == 2
     assert bst_from_list.bst_height() == 3
 
-    sample_bst.add_node(-2)
-    sample_bst.add_node(1)
-    sample_bst.add_node(-8)
-    sample_bst.add_node(-16)
-    bst_from_list.add_node(200)
-    bst_from_list.add_node(300)
-    bst_from_list.add_node(250)
+    bst_from_list.add_node(-2)
+    bst_from_list.add_node(1)
+    bst_from_list.add_node(-8)
+    bst_from_list.add_node(-16)
+    bst_from_list.add_node(-3)
+    bst_from_list.add_node(2)
+    bst_from_list.add_node(8)
+    bst_from_list.add_node(12)
+    sample_bst.add_node(200)
+    sample_bst.add_node(300)
+    sample_bst.add_node(250)
+    sample_bst.add_node(85)
+    sample_bst.add_node(150)
 
+    assert bst_from_list.bst_height() == 6
     assert sample_bst.bst_height() == 5
-    assert bst_from_list.bst_height() == 5
