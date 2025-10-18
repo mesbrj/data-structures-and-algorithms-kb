@@ -164,11 +164,6 @@ def test_add_node(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree)
     assert bst_from_list.add_node(9) == True
     assert bst_from_list.add_node(4) == False
 
-def test_bst_height(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
-
-    assert sample_bst.bst_height() == 2
-    assert bst_from_list.bst_height() == 3
-
 def test_search_value(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
 
     assert sample_bst.search_node(7) == True
@@ -213,3 +208,8 @@ def test_bf_level_order(sample_bst: BinarySearchTree, bst_from_list: BinarySearc
 
     assert sample_bst.bf_level_order() == [[10], [5, 15], [3, 7, 18]]
     assert bst_from_list.bf_level_order() == [[7], [4, 13], [3, 6, 10, 14], [1, 8]]
+
+def test_bst_height(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
+
+    assert sample_bst.bst_height() == 2
+    assert bst_from_list.bst_height() == 3
