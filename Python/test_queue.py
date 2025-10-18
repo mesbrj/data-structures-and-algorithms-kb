@@ -42,10 +42,12 @@ def sample_stack() -> LIFOQueue:
     return stack
 
 def test_lifo_push_and_seek(sample_stack: LIFOQueue) -> None:
+    assert sample_stack.seek() == 3
     sample_stack.push(4)
     assert sample_stack.seek() == 4
 
 def test_lifo_pop_and_size(sample_stack: LIFOQueue) -> None:
+    assert sample_stack.stack_size() == 3
     assert sample_stack.pop() == 3
     assert sample_stack.stack_size() == 2
     assert sample_stack.pop() == 2

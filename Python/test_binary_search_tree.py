@@ -98,31 +98,31 @@ class BinarySearchTree():
 
     def df_pre_order(self) -> List[int]:
         pre_order = []
-        def _df_pre_order(root: TreeNode):
-            if root:
-                pre_order.append(root.value)
-                _df_pre_order(root.left)
-                _df_pre_order(root.right)
+        def _df_pre_order(node: TreeNode):
+            if node:
+                pre_order.append(node.value)
+                _df_pre_order(node.left)
+                _df_pre_order(node.right)
         _df_pre_order(self.root)
         return pre_order
 
     def df_in_order(self) -> List[int]:
         in_order = []
-        def _df_in_order(root: TreeNode):
-            if root:
-                _df_in_order(root.left)
-                in_order.append(root.value)
-                _df_in_order(root.right)
+        def _df_in_order(node: TreeNode):
+            if node:
+                _df_in_order(node.left)
+                in_order.append(node.value)
+                _df_in_order(node.right)
         _df_in_order(self.root)
         return in_order
 
     def df_post_order(self) -> List[int]:
         post_order = []
-        def _df_post_order(root: TreeNode):
-            if root:
-                _df_post_order(root.left)
-                _df_post_order(root.right)
-                post_order.append(root.value)
+        def _df_post_order(node: TreeNode):
+            if node:
+                _df_post_order(node.left)
+                _df_post_order(node.right)
+                post_order.append(node.value)
         _df_post_order(self.root)
         return post_order
 
@@ -141,19 +141,20 @@ def sample_bst() -> BinarySearchTree:
 def bst_from_list() -> BinarySearchTree:
     sorted_values = sorted([8, 3, 10, 1, 6, 14, 4, 7, 13])
 
-    def insert(value: int, left: List[int], right: List[int]) -> TreeNode:
+    def _insert(value: int, left: List[int], right: List[int]) -> TreeNode:
         node = TreeNode(value)
         if left:
             mid = len(left) // 2
-            node.left = insert(left[mid], left[:mid], left[mid+1:])
+            node.left = _insert(left[mid], left[:mid], left[mid+1:])
         if right:
             mid = len(right) // 2
-            node.right = insert(right[mid], right[:mid], right[mid+1:])
+            node.right = _insert(right[mid], right[:mid], right[mid+1:])
         return node
 
     mid = len(sorted_values) // 2
-    root = insert(sorted_values[mid], sorted_values[:mid], sorted_values[mid+1:])
-    return BinarySearchTree(root)
+    return BinarySearchTree(
+        _insert(sorted_values[mid], sorted_values[:mid], sorted_values[mid+1:])
+    )
 
 
 def test_add_node(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
