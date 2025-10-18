@@ -14,19 +14,38 @@ class BinarySearchTree():
         self.root = root
 
     def add_node(self, value: int) -> bool:
-        def _add_single_node(node: TreeNode, value: int):
+        def _add_single_node(node: TreeNode, value: int) -> bool:
             if node is None:
-                node = TreeNode(value)
-                return True
+                return False
             elif value < node.value:
-                return _add_single_node(node.left, value)
+                if node.left is None:
+                    node.left = TreeNode(value)
+                    return True
+                else:
+                    return _add_single_node(node.left, value)
             elif value > node.value:
-                return _add_single_node(node.right, value)
+                if node.right is None:
+                    node.right = TreeNode(value)
+                    return True
+                else:
+                    return _add_single_node(node.right, value)
             else:
                 return False
-        return _add_single_node(self.root, value)
 
-    def serch_node(self, value: int) -> bool:
+        if self.root is None:
+            self.root = TreeNode(value)
+            return True
+        else:
+            return _add_single_node(self.root, value)
+
+    def bst_height(self) -> int:
+        def _bst_height(node: TreeNode) -> int:
+            if node is None:
+                return -1
+            return max(_bst_height(node.left), _bst_height(node.right)) + 1
+        return _bst_height(self.root)
+
+    def search_node(self, value: int) -> bool:
         def _search_single_node(node: TreeNode, value: int) -> bool:
             if node is None:
                 return False
@@ -37,6 +56,26 @@ class BinarySearchTree():
             else:
                 return _search_single_node(node.right, value)
         return _search_single_node(self.root, value)
+
+    def find_min(self) -> int:
+        def _find_min(node: TreeNode) -> int:
+            if node:
+                if node.left is None:
+                    return node.value
+                return _find_min(node.left)
+            else:
+                return None
+        return _find_min(self.root)
+
+    def find_max(self) -> int:
+        def _find_max(node: TreeNode) -> int:
+            if node:
+                if node.right is None:
+                    return node.value
+                return _find_max(node.right)
+            else:
+                return None
+        return _find_max(self.root)
 
     def bf_level_order(self) -> List[List[int]]:
         list_levels = []
@@ -125,13 +164,35 @@ def test_add_node(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree)
     assert bst_from_list.add_node(9) == True
     assert bst_from_list.add_node(4) == False
 
+def test_bst_height(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
 
-def test_serch_node(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
+    assert sample_bst.bst_height() == 2
+    assert bst_from_list.bst_height() == 3
 
-    assert sample_bst.serch_node(7) == True
-    assert sample_bst.serch_node(20) == False
-    assert bst_from_list.serch_node(10) == True
-    assert bst_from_list.serch_node(2) == False
+def test_search_value(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
+
+    assert sample_bst.search_node(7) == True
+    assert sample_bst.search_node(20) == False
+    assert bst_from_list.search_node(10) == True
+    assert bst_from_list.search_node(2) == False
+
+def test_find_min_value(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
+
+    assert sample_bst.find_min() == 3
+    assert bst_from_list.find_min() == 1
+    sample_bst.add_node(-52)
+    bst_from_list.add_node(0)
+    assert sample_bst.find_min() == -52
+    assert bst_from_list.find_min() == 0
+
+def test_find_max_value(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
+
+    assert sample_bst.find_max() == 18
+    assert bst_from_list.find_max() == 14
+    sample_bst.add_node(20)
+    bst_from_list.add_node(25)
+    assert sample_bst.find_max() == 20
+    assert bst_from_list.find_max() == 25
 
 def test_df_in_order(sample_bst: BinarySearchTree, bst_from_list: BinarySearchTree):
 

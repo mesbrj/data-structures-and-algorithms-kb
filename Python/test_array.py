@@ -81,7 +81,7 @@ def test_quick_sort(unsorted_list: List[int]):
 
 def test_merge_sort(unsorted_list: List[int]):
     test_list = unsorted_list.copy()
-    expected_sorted_list = sorted(unsorted_list)    
+    expected_sorted_list = sorted(unsorted_list)
     merge_sort(test_list)
     assert test_list == expected_sorted_list
 
